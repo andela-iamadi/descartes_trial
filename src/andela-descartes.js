@@ -1,3 +1,21 @@
+class Andela {
+	constructor(styles) {
+		this.styles = styles
+		this.rulesStr;
+		this.flatten()
+	}
+
+	flatten(obj = this.styles) {
+		var dummyObj = {}, rules;
+		for (var key in obj) {
+			var rules = obj[key];
+		    if (typeof rules == 'object') {
+		      this.flatten(rules)
+		    }
+		}
+  	}
+}
+
 var styles = {
 	"html": {
 		"margin": 0,
@@ -8,16 +26,4 @@ var styles = {
 		}
 	}
 }
-
-var html = $(document).find('html');
-var rulesStr;
-
-const flatten = (obj) => {
-  var dummyObj = {}, rules;
-  for (key in obj) {
-    var rules = obj[key];
-    if (typeof rules == 'object') {
-      flatten(rules)
-    }
-  }
-}
+new Andela(styles)
