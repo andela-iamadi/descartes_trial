@@ -11,23 +11,33 @@ var Andela = function () {
 		_classCallCheck(this, Andela);
 
 		this.styles = styles;
+		this.mapping = {};
 		this.rulesStr;
 		this.flatten();
+		console.log(this.mapping);
 	}
 
 	_createClass(Andela, [{
 		key: "flatten",
 		value: function flatten() {
 			var obj = arguments.length <= 0 || arguments[0] === undefined ? this.styles : arguments[0];
+			var selector = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
 			var dummyObj = {},
 			    rules;
 			for (var key in obj) {
 				var rules = obj[key];
-				if ((typeof rules === "undefined" ? "undefined" : _typeof(rules)) == 'object') {
-					this.flatten(rules);
+				if ((typeof rules === "undefined" ? "undefined" : _typeof(rules)) === 'object') {
+					// This is a nested rule, run flatten again
+					this.flatten(rules, key);
+				} else {
+					// This is a real CSS rule
+					var rule = {};
+					rule[key] = rules;
+					this.mapping[selector] = rule;
 				}
 			}
+			return dummyObj;
 		}
 	}]);
 
