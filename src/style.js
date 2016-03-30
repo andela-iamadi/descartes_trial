@@ -5,7 +5,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		"color": "#666",
 		"font-family": "Helvetica",
 		'p': {
-			'font-weight': 'normal'
+			'margin-top': function(_) {
+				debugger;
+				_.height = "300px";
+				_.style['font-weight'] = 'bold'
+				return `${_.height / 2}px`;
+			}
 		}
 	}
 	var styles = {
