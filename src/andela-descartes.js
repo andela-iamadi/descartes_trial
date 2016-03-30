@@ -1,7 +1,8 @@
 'use strict'
 
 const Descartes = (tree) => {
-	var check = applyMixins(tree);
+	applyMixins(tree);
+	debugger;
 	var objStyles = flatten(tree);
 	applyStyles(objStyles);
 }
@@ -24,27 +25,37 @@ let flatten = (obj) => {
   for (var key in obj) {
     flattenNode(obj, key, builtObj)
   }
-  console.log(builtObj)
   return builtObj;
 }
 
-let applyMixins = (obj, parentKey) => {
-	for (var key in obj) {
-		if (key === "_mixin")  {
-			obj[parentKey] = obj[key];
-		} else if (typeof key === 'object') {
-			applyMixins(obj[key], key)
+
+// Create a new tree that applies all mixins before flattening
+let applyMixins = (tree) => {
+	// Apply the mixins
+	var obj = {}
+	for (var key in tree) {
+		if (typeof tree[key] == 'object') {
+			if (key === '_mixin') {
+	  		var mixin = tree[key]
+	  		for (var property in mixin) {
+	  			tree[property] = mixin[property]
+	  		}
+				delete(tree[key])
+	  	} else {
+				applyMixins(tree[key])
+			}
 		}
 	}
-	return obj;
+	return tree;
 }
 
-let flattenNode = (obj, key, builtObj, parentKey, str) => {
+let flattenNode = (obj, key, builtObj, str) => {
   str = str || ""
   str += ((str.length > 0) ? " " + key : key)
   if (typeof obj[key] == 'object'){
+
 		for (var k in obj[key]) {
-			flattenNode(obj[key], k, builtObj, key, str)
+			flattenNode(obj[key], k, builtObj, str)
 		}
   } else {
       builtObj[str] = obj[key]
