@@ -5,7 +5,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		"color": "#666",
 		"font-family": "Helvetica",
 		'p': {
-			'font-weight': 'normal'
+			"height": "300px",
+			"font-weight": "bold",
+			'margin-top': function marginTop(_) {
+				return _.height / 2 + "px";
+			}
 		}
 	};
 	var styles = {
@@ -14,11 +18,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 			"padding": 0,
 			"body": {
 				'_mixin': _font
-			},
-			"div": {
-				"height": function() {
-					return "50px"
-				}
 			}
 		}
 	};
