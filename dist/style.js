@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 			"padding": 0,
 			"body": {
 				'_mixin': _font
+			},
+			"div": {
+				"height": function() {
+					return "50px"
+				}
 			}
 		}
 	};

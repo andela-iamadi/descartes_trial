@@ -2,9 +2,8 @@
 
 const Descartes = (tree) => {
 	applyMixins(tree);
-	debugger;
 	var objStyles = flatten(tree);
-	applyStyles(objStyles);
+	applyStyles(objStyles)
 }
 
 let applyStyles = (objStyles) => {
@@ -15,7 +14,7 @@ let applyStyles = (objStyles) => {
 		style = key.substring(lastIndex).trim();
 		elements = document.querySelectorAll(selector);
 		for (var i = 0; i < elements.length; i++) {
-			elements[i].style[style] = objStyles[key];
+			elements[i].style[style] = (typeof objStyles[key] === 'function') ? objStyles[key]() : objStyles[key];
 		}
 	}
 }
