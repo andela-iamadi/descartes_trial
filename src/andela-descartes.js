@@ -33,7 +33,6 @@ let applyMixins = (obj, parentKey) => {
 		if (key === "_mixin")  {
 			obj[parentKey] = obj[key];
 		} else if (typeof key === 'object') {
-			debugger;
 			applyMixins(obj[key], key)
 		}
 	}
